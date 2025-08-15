@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: ${APP_NAME:monomart}
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/monomart}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    properties:
+      hibernate:
+        format_sql: ${HIBERNATE_FORMAT_SQL:true}
+        jdbc.lob.non_contextual_creation: true
+    open-in-view: false
+    show-sql: ${JPA_SHOW_SQL:true}
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+server:
+  port: ${SERVER_PORT:8080}
+
+security:
+  jwt:
+    issuer: ${JWT_ISSUER:MonoMart}
+    access-token-expiration-minutes: ${JWT_ACCESS_TOKEN_EXPIRATION:60}
+    refresh-token-expiration-days: ${JWT_REFRESH_TOKEN_EXPIRATION:7}
+    secret: ${JWT_SECRET:dev-secret-change-me-please-32-bytes-minimum!}
+
+logging:
+  level:
+    root: ${LOG_LEVEL_ROOT:INFO}
+    org.hibernate.SQL: ${LOG_LEVEL_SQL:DEBUG}
+    org.springframework.security: ${LOG_LEVEL_SECURITY:DEBUG}
+    com.monomart: ${LOG_LEVEL_APP:DEBUG}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ${MANAGEMENT_ENDPOINTS:health,info,metrics}
+
+springdoc:
+  api-docs:
+    path: ${API_DOCS_PATH:/api-docs}
+  swagger-ui:
+    path: ${SWAGGER_UI_PATH:/swagger-ui.html}
+    operations-sorter: method
+    tags-sorter: alpha
+    try-it-out-enabled: true
+  info:
+    title: ${API_TITLE:MonoMart API}
+    description: ${API_DESCRIPTION:Single-vendor e-commerce backend API}
+    version: ${API_VERSION:1.0.0}
+    contact:
+      name: ${API_CONTACT_NAME:MonoMart Support}
+      email: ${API_CONTACT_EMAIL:support@monomart.local}
