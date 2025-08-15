@@ -1,0 +1,10 @@
+target
+.idea
+.project
+.classpath
+.settings
+*.iml
+Dockerfile
+docker-compose.yml
+postman
+

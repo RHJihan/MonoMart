@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: monomart
+      POSTGRES_USER: monomart
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - monomart-network
+    restart: unless-stopped
+
+  app:
+    image: monomart:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/monomart
+      SPRING_DATASOURCE_USERNAME: monomart
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      MONOMART_JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - monomart-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  monomart-network:
+    driver: bridge
