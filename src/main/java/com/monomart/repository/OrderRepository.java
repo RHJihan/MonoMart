@@ -1,7 +1,7 @@
 package com.monomart.repository;
 
-import com.monomart.domain.Order;
-import com.monomart.domain.enums.OrderStatus;
+import com.monomart.entities.Order;
+import com.monomart.entities.enums.OrderStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

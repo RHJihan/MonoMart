@@ -1,7 +1,7 @@
 package com.monomart.service;
 
-import com.monomart.domain.User;
-import com.monomart.domain.enums.Role;
+import com.monomart.entities.User;
+import com.monomart.entities.enums.Role;
 import com.monomart.dto.auth.AuthDtos;
 import com.monomart.repository.UserRepository;
 import java.util.HashMap;

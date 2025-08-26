@@ -1,7 +1,7 @@
 package com.monomart.service;
 
-import com.monomart.domain.Category;
-import com.monomart.domain.Product;
+import com.monomart.entities.Category;
+import com.monomart.entities.Product;
 import com.monomart.dto.product.ProductDtos;
 import com.monomart.mapper.Mappers;
 import com.monomart.repository.CategoryRepository;

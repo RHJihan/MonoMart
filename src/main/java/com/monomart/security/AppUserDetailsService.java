@@ -1,6 +1,6 @@
 package com.monomart.security;
 
-import com.monomart.domain.User;
+import com.monomart.entities.User;
 import com.monomart.repository.UserRepository;
 import java.util.Collections;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

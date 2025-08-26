@@ -1,6 +1,6 @@
-package com.monomart.domain;
+package com.monomart.entities;
 
-import com.monomart.domain.enums.Role;
+import com.monomart.entities.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

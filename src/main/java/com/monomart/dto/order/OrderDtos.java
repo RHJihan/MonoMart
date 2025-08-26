@@ -1,6 +1,6 @@
 package com.monomart.dto.order;
 
-import com.monomart.domain.enums.OrderStatus;
+import com.monomart.entities.enums.OrderStatus;
 import jakarta.validation.constraints.NotNull;
 
 public class OrderDtos {

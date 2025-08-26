@@ -1,8 +1,8 @@
 package com.monomart.service;
 
-import com.monomart.domain.CartItem;
-import com.monomart.domain.Product;
-import com.monomart.domain.User;
+import com.monomart.entities.CartItem;
+import com.monomart.entities.Product;
+import com.monomart.entities.User;
 import com.monomart.dto.cart.CartDtos;
 import com.monomart.repository.CartItemRepository;
 import com.monomart.repository.ProductRepository;
