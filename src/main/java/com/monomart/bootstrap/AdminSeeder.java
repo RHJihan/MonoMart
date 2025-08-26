@@ -1,7 +1,7 @@
 package com.monomart.bootstrap;
 
-import com.monomart.domain.User;
-import com.monomart.domain.enums.Role;
+import com.monomart.entities.User;
+import com.monomart.entities.enums.Role;
 import com.monomart.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.monomart.domain.enums;
+package com.monomart.entities.enums;
 
 public enum OrderStatus {
     PENDING,

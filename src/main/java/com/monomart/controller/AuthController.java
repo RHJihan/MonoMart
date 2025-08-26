@@ -1,7 +1,7 @@
 package com.monomart.controller;
 
-import com.monomart.domain.User;
-import com.monomart.domain.enums.Role;
+import com.monomart.entities.User;
+import com.monomart.entities.enums.Role;
 import com.monomart.dto.auth.AuthDtos;
 import com.monomart.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;

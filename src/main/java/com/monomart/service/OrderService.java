@@ -1,11 +1,11 @@
 package com.monomart.service;
 
-import com.monomart.domain.CartItem;
-import com.monomart.domain.Order;
-import com.monomart.domain.OrderItem;
-import com.monomart.domain.Product;
-import com.monomart.domain.User;
-import com.monomart.domain.enums.OrderStatus;
+import com.monomart.entities.CartItem;
+import com.monomart.entities.Order;
+import com.monomart.entities.OrderItem;
+import com.monomart.entities.Product;
+import com.monomart.entities.User;
+import com.monomart.entities.enums.OrderStatus;
 import com.monomart.repository.CartItemRepository;
 import com.monomart.repository.OrderItemRepository;
 import com.monomart.repository.OrderRepository;

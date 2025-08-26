@@ -1,8 +1,8 @@
 package com.monomart.mapper;
 
-import com.monomart.domain.Category;
-import com.monomart.domain.Product;
-import com.monomart.domain.CartItem;
+import com.monomart.entities.Category;
+import com.monomart.entities.Product;
+import com.monomart.entities.CartItem;
 import com.monomart.dto.category.CategoryDtos;
 import com.monomart.dto.product.ProductDtos;
 import com.monomart.dto.cart.CartDtos;
