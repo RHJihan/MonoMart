@@ -1,6 +1,6 @@
 package com.monomart.repository;
 
-import com.monomart.domain.OrderItem;
+import com.monomart.entities.OrderItem;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 

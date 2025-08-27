@@ -1,6 +1,6 @@
 package com.monomart.repository;
 
-import com.monomart.domain.Product;
+import com.monomart.entities.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

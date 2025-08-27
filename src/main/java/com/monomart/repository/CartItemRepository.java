@@ -1,6 +1,6 @@
 package com.monomart.repository;
 
-import com.monomart.domain.CartItem;
+import com.monomart.entities.CartItem;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

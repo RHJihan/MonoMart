@@ -47,6 +47,7 @@ public class CartController {
     }
 
     @GetMapping("/total")
+    @Transactional(readOnly = true)
     public BigDecimal total(Authentication auth) {
         return cartService.computeTotal(currentUserId(auth));
     }

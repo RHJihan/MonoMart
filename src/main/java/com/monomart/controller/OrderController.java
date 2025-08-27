@@ -1,6 +1,6 @@
 package com.monomart.controller;
 
-import com.monomart.domain.Order;
+import com.monomart.entities.Order;
 import com.monomart.dto.order.OrderDtos;
 import com.monomart.security.AuthenticatedUser;
 import com.monomart.service.OrderService;
