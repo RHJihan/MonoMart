@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "user_address")
+@Table(name = "user_addresses")
 public class UserAddress extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

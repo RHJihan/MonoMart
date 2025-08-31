@@ -1,31 +1,30 @@
 package com.monomart.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.Value;
+import lombok.Builder;
 
-@Getter
-@Setter
 public class UserAddressDtos {
 
     // ----------------- RESPONSE DTO -----------------
-    @Getter
-    @Setter
+    @Value
+    @Builder
     public static class Response {
-        private Long id;
-        private String addressType;
-        private String addressLine1;
-        private String addressLine2;
-        private String upazila;
-        private String city;
-        private String country;
-        private String phone;
+        Long id;
+        String addressType;
+        String addressLine1;
+        String addressLine2;
+        String upazila;
+        String city;
+        String country;
+        String phone;
     }
 
     // ----------------- CREATE DTO -----------------
-    @Getter
-    @Setter
+    @Data
     public static class CreateRequest {
         @NotBlank
         @Size(max = 20)
@@ -56,9 +55,9 @@ public class UserAddressDtos {
     }
 
     // ----------------- UPDATE DTO -----------------
-    @Getter
-    @Setter
+    @Data
     public static class UpdateRequest {
+        @NotNull
         private Long id; // must be provided for updates
 
         @NotBlank
