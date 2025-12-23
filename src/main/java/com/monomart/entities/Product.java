@@ -1,4 +1,4 @@
-package com.monomart.domain;
+package com.monomart.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,6 +1,5 @@
 package com.monomart.security;
 
-import com.monomart.domain.User;
 import com.monomart.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;

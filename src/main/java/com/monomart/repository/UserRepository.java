@@ -1,6 +1,6 @@
 package com.monomart.repository;
 
-import com.monomart.domain.User;
+import com.monomart.entities.User;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
