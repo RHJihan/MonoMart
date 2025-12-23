@@ -1,7 +1,7 @@
 --liquibase formatted sql
 
 --changeset monomart:007-add-product-sku
-ALTER TABLE products ADD COLUMN sku VARCHAR(100);
+ALTER TABLE products ADD COLUMN sku VARCHAR(36);
 
 --update existing rows with a temporary unique value
 UPDATE products SET sku = gen_random_uuid()::text WHERE sku IS NULL;
