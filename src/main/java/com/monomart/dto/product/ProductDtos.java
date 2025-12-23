@@ -51,6 +51,7 @@ public class ProductDtos {
     public static class ProductResponse {
         Long id;
         String name;
+        String sku;
         String description;
         BigDecimal price;
         Integer stockQuantity;
@@ -58,5 +59,3 @@ public class ProductDtos {
         String imageUrl;
     }
 }
-
-
