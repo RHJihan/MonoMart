@@ -46,6 +46,7 @@ public class ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
         Product product = new Product();
         product.setName(request.getName());
+        product.setSku(java.util.UUID.randomUUID().toString());
         product.setDescription(request.getDescription());
         product.setPrice(request.getPrice());
         product.setStockQuantity(request.getStockQuantity());
@@ -80,5 +81,3 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 }
-
-

@@ -31,6 +31,9 @@ public class Product extends BaseEntity {
     @Column(nullable = false, length = 150)
     private String name;
 
+    @Column(name = "sku", nullable = false, length = 36, unique = true)
+    private String sku;
+
     @Size(max = 1000)
     @Column(length = 1000)
     private String description;
@@ -53,5 +56,3 @@ public class Product extends BaseEntity {
     @Column(name = "image_url", length = 500)
     private String imageUrl;
 }
-
-
