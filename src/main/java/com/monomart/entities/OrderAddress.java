@@ -3,6 +3,7 @@ package com.monomart.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,17 +13,18 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "user_addresses")
-public class UserAddress extends BaseEntity {
+@Table(name = "order_addresses")
+public class OrderAddress extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_user", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
     private User user;
 
     @NotBlank
     @Size(max = 20)
     @Column(name = "address_type", nullable = false, length = 20)
-    private String addressType; // e.g., Home, Office
+    private String addressType;
 
     @NotBlank
     @Size(max = 255)

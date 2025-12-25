@@ -2,9 +2,11 @@ package com.monomart.service;
 
 import com.monomart.entities.CartItem;
 import com.monomart.entities.Order;
+import com.monomart.entities.OrderAddress;
 import com.monomart.entities.OrderItem;
 import com.monomart.entities.Product;
 import com.monomart.entities.User;
+import com.monomart.entities.UserAddress;
 import com.monomart.entities.enums.OrderStatus;
 import com.monomart.repository.CartItemRepository;
 import com.monomart.repository.OrderItemRepository;
@@ -26,13 +28,19 @@ public class OrderService {
     private final CartItemRepository cartItemRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final UserAddressService userAddressService;
+    private final OrderAddressService orderAddressService;
 
-    public OrderService(OrderRepository orderRepository, OrderItemRepository orderItemRepository, CartItemRepository cartItemRepository, ProductRepository productRepository, UserRepository userRepository) {
+    public OrderService(OrderRepository orderRepository, OrderItemRepository orderItemRepository,
+            CartItemRepository cartItemRepository, ProductRepository productRepository, UserRepository userRepository,
+            UserAddressService userAddressService, OrderAddressService orderAddressService) {
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
         this.cartItemRepository = cartItemRepository;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
+        this.userAddressService = userAddressService;
+        this.orderAddressService = orderAddressService;
     }
 
     public Page<Order> listAll(Pageable pageable) {
@@ -43,13 +51,22 @@ public class OrderService {
         return orderRepository.findByUserId(userId, pageable);
     }
 
-    public Order get(Long id) { return orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Order not found")); }
+    public Order get(Long id) {
+        return orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Order not found"));
+    }
 
     @Transactional
-    public Order placeOrder(Long userId) {
+    public Order placeOrder(Long userId, Long addressId) {
+        // Verify address ownership first
+        UserAddress userAddress = userAddressService.verifyAddressOwnership(addressId, userId);
+
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        // Create immutable snapshot of the address for this order
+        OrderAddress orderAddress = orderAddressService.createFromUserAddress(userAddress, user);
         List<CartItem> cartItems = cartItemRepository.findByUserId(userId);
-        if (cartItems.isEmpty()) throw new IllegalArgumentException("Cart is empty");
+        if (cartItems.isEmpty())
+            throw new IllegalArgumentException("Cart is empty");
 
         BigDecimal total = BigDecimal.ZERO;
         for (CartItem ci : cartItems) {
@@ -61,6 +78,7 @@ public class OrderService {
 
         Order order = new Order();
         order.setUser(user);
+        order.setAddress(orderAddress);
         order.setStatus(OrderStatus.PENDING);
         order.setTotalAmount(total);
         order = orderRepository.save(order);
@@ -89,5 +107,3 @@ public class OrderService {
         return orderRepository.save(order);
     }
 }
-
-

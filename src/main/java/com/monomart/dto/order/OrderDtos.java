@@ -10,7 +10,22 @@ public class OrderDtos {
         Long id;
         java.math.BigDecimal totalAmount;
         OrderStatus status;
+        OrderAddressResponse address;
         java.time.Instant createdAt;
+    }
+
+    @lombok.Builder
+    @lombok.Value
+    public static class OrderAddressResponse {
+        Long id;
+        String addressType;
+        String addressLine1;
+        String addressLine2;
+        String upazila;
+        String city;
+        String country;
+        String phone;
+        String email;
     }
 
     @lombok.Data
@@ -18,6 +33,10 @@ public class OrderDtos {
         @NotNull
         private OrderStatus status;
     }
+
+    @lombok.Data
+    public static class PlaceOrderRequest {
+        @NotNull
+        private Long addressId;
+    }
 }
-
-

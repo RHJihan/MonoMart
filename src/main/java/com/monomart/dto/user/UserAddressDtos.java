@@ -1,5 +1,6 @@
 package com.monomart.dto.user;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -21,6 +22,7 @@ public class UserAddressDtos {
         String city;
         String country;
         String phone;
+        String email;
     }
 
     // ----------------- CREATE DTO -----------------
@@ -52,6 +54,10 @@ public class UserAddressDtos {
         @NotBlank
         @Size(max = 20)
         private String phone;
+
+        @Email
+        @Size(max = 120)
+        private String email;
     }
 
     // ----------------- UPDATE DTO -----------------
@@ -86,5 +92,9 @@ public class UserAddressDtos {
         @NotBlank
         @Size(max = 20)
         private String phone;
+
+        @Email
+        @Size(max = 120)
+        private String email;
     }
 }

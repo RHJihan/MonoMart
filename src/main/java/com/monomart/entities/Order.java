@@ -26,13 +26,18 @@ import lombok.Setter;
 @Entity
 @Table(name = "orders", indexes = {
         @Index(name = "idx_orders_user", columnList = "user_id"),
-        @Index(name = "idx_orders_status", columnList = "status")
+        @Index(name = "idx_orders_status", columnList = "status"),
+        @Index(name = "idx_orders_address", columnList = "address_id")
 })
 public class Order extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id", nullable = false)
+    private OrderAddress address;
 
     @NotNull
     @Min(0)
@@ -46,5 +51,3 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> items = new ArrayList<>();
 }
-
-
