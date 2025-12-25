@@ -4,6 +4,7 @@ import com.monomart.service.PaymentService;
 import com.stripe.model.*;
 import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
+import java.util.Map;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -50,6 +51,12 @@ public class StripeWebhookController {
 
         // Extract transaction ID (PaymentIntent ID) from the event
         String transactionId = extractTransactionId(event);
+
+        // Extract order ID to ensure mapping exists
+        Long orderIdFromEvent = extractOrderId(event);
+        if (orderIdFromEvent != null && transactionId != null) {
+            paymentService.ensurePaymentMapping(orderIdFromEvent, transactionId);
+        }
 
         // Save the event to PaymentEvent table
         paymentService.savePaymentEvent(transactionId, eventType, payload);
@@ -260,6 +267,34 @@ public class StripeWebhookController {
             // Or just store provider update
             // paymentService.updateProviderResponse(orderId, charge.toJson());
         } catch (RuntimeException ignored) {
+        }
+    }
+
+    /**
+     * Extract order ID from different event types
+     */
+    private Long extractOrderId(Event event) {
+        try {
+            Map<String, String> metadata = null;
+            Object obj = event.getDataObjectDeserializer().getObject().orElse(null);
+
+            if (obj instanceof Session session) {
+                metadata = session.getMetadata();
+            } else if (obj instanceof PaymentIntent intent) {
+                metadata = intent.getMetadata();
+            } else if (obj instanceof Charge charge) {
+                metadata = charge.getMetadata();
+            }
+
+            if (metadata != null) {
+                String orderIdStr = metadata.get("order_id");
+                if (orderIdStr != null) {
+                    return Long.parseLong(orderIdStr);
+                }
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
         }
     }
 

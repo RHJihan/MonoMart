@@ -1,8 +1,6 @@
 package com.monomart.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,8 +11,11 @@ import lombok.Setter;
 @Entity
 @Table(name = "payment_events")
 public class PaymentEvent extends BaseEntity {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transaction_id", referencedColumnName = "transaction_id", nullable = false, insertable = false, updatable = false)
+    private Payment payment;
 
-    @Column(name = "transaction_id", nullable = true)
+    @Column(name = "transaction_id", nullable = false)
     private String transactionId;
 
     @Column(name = "event_type", nullable = false)

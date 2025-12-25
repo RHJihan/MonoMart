@@ -46,6 +46,11 @@ public class StripeService {
                                 .setCancelUrl("http://localhost:8080/cancel")
                                 .addLineItem(lineItem)
                                 .putMetadata("order_id", productRequest.getOrderId().toString())
+                                .setPaymentIntentData(
+                                                SessionCreateParams.PaymentIntentData.builder()
+                                                                .putMetadata("order_id",
+                                                                                productRequest.getOrderId().toString())
+                                                                .build())
                                 .build();
 
                 // Create new session

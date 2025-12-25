@@ -116,7 +116,7 @@ CREATE TABLE payments
     id             BIGSERIAL PRIMARY KEY,
     user_id        BIGINT         NOT NULL REFERENCES users (id),
     order_id       BIGINT         NOT NULL UNIQUE REFERENCES orders (id),
-    transaction_id VARCHAR(255),
+    transaction_id VARCHAR(255)   UNIQUE,
     amount         NUMERIC(15, 2) NOT NULL,
     currency       VARCHAR(3),
     status         VARCHAR(32),
@@ -125,11 +125,12 @@ CREATE TABLE payments
 );
 CREATE INDEX idx_payments_user ON payments (user_id);
 CREATE INDEX idx_payments_order ON payments (order_id);
+CREATE INDEX idx_payments_transaction ON payments (transaction_id);
 --changeset monomart:010-create-payment-events-table
 CREATE TABLE payment_events
 (
     id             BIGSERIAL PRIMARY KEY,
-    transaction_id VARCHAR(255),
+    transaction_id VARCHAR(255) REFERENCES payments(transaction_id) ON DELETE CASCADE,
     event_type     VARCHAR(255) NOT NULL,
     payload        TEXT,
     created_at     TIMESTAMPTZ  NOT NULL DEFAULT NOW(),

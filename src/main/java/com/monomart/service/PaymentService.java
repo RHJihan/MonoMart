@@ -122,11 +122,33 @@ public class PaymentService {
     }
 
     @Transactional
+    public void ensurePaymentMapping(Long orderId, String transactionId) {
+        if (orderId == null || transactionId == null)
+            return;
+
+        paymentRepository.findByOrderId(orderId).ifPresent(payment -> {
+            // If the current transactionId is still the session ID (starts with cs_),
+            // or if it's null, or if it's different and we want to update it to PI ID.
+            if (payment.getTransactionId() == null || !payment.getTransactionId().equals(transactionId)) {
+                payment.setTransactionId(transactionId);
+                paymentRepository.save(payment);
+            }
+        });
+    }
+
+    @Transactional
     public void savePaymentEvent(String transactionId, String eventType, String payload) {
         PaymentEvent event = new PaymentEvent();
         event.setTransactionId(transactionId);
         event.setEventType(eventType);
         event.setPayload(payload);
+
+        // Try to link with Payment if transactionId is present
+        if (transactionId != null) {
+            paymentRepository.findByTransactionId(transactionId)
+                    .ifPresent(event::setPayment);
+        }
+
         paymentEventRepository.save(event);
     }
 }
