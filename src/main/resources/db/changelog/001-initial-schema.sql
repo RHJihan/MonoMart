@@ -29,6 +29,7 @@ CREATE INDEX idx_categories_name ON categories (name);
 CREATE TABLE products (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
+    sku VARCHAR(36) NOT NULL UNIQUE,
     description VARCHAR(1000),
     price NUMERIC(15,2) NOT NULL,
     stock_quantity INT NOT NULL,

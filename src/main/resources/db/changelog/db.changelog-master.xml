@@ -6,6 +6,5 @@
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
 
     <include file="db/changelog/001-initial-schema.sql"/>
-    <include file="db/changelog/002-add-product-sku.sql"/>
 
 </databaseChangeLog>
