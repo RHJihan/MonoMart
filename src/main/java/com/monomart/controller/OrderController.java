@@ -18,11 +18,14 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    public OrderController(OrderService orderService) { this.orderService = orderService; }
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     private Long currentUserId(Authentication auth) {
         Object principal = auth.getPrincipal();
-        if (principal instanceof AuthenticatedUser au) return au.getUserId();
+        if (principal instanceof AuthenticatedUser au)
+            return au.getUserId();
         throw new IllegalStateException("Invalid principal");
     }
 
@@ -33,6 +36,17 @@ public class OrderController {
                 .id(o.getId())
                 .totalAmount(o.getTotalAmount())
                 .status(o.getStatus())
+                .address(o.getAddress() != null ? OrderDtos.OrderAddressResponse.builder()
+                        .id(o.getAddress().getId())
+                        .addressType(o.getAddress().getAddressType())
+                        .addressLine1(o.getAddress().getAddressLine1())
+                        .addressLine2(o.getAddress().getAddressLine2())
+                        .upazila(o.getAddress().getUpazila())
+                        .city(o.getAddress().getCity())
+                        .country(o.getAddress().getCountry())
+                        .phone(o.getAddress().getPhone())
+                        .email(o.getAddress().getEmail())
+                        .build() : null)
                 .createdAt(o.getCreatedAt())
                 .build());
     }
@@ -43,32 +57,65 @@ public class OrderController {
                 .id(o.getId())
                 .totalAmount(o.getTotalAmount())
                 .status(o.getStatus())
+                .address(o.getAddress() != null ? OrderDtos.OrderAddressResponse.builder()
+                        .id(o.getAddress().getId())
+                        .addressType(o.getAddress().getAddressType())
+                        .addressLine1(o.getAddress().getAddressLine1())
+                        .addressLine2(o.getAddress().getAddressLine2())
+                        .upazila(o.getAddress().getUpazila())
+                        .city(o.getAddress().getCity())
+                        .country(o.getAddress().getCountry())
+                        .phone(o.getAddress().getPhone())
+                        .email(o.getAddress().getEmail())
+                        .build() : null)
                 .createdAt(o.getCreatedAt())
                 .build());
     }
 
     @PostMapping("/place")
-    public ResponseEntity<OrderDtos.OrderResponse> place(Authentication auth) {
-        Order o = orderService.placeOrder(currentUserId(auth));
+    public ResponseEntity<OrderDtos.OrderResponse> place(
+            @RequestBody @jakarta.validation.Valid OrderDtos.PlaceOrderRequest request, Authentication auth) {
+        Order o = orderService.placeOrder(currentUserId(auth), request.getAddressId());
         return ResponseEntity.status(HttpStatus.CREATED).body(OrderDtos.OrderResponse.builder()
                 .id(o.getId())
                 .totalAmount(o.getTotalAmount())
                 .status(o.getStatus())
+                .address(o.getAddress() != null ? OrderDtos.OrderAddressResponse.builder()
+                        .id(o.getAddress().getId())
+                        .addressType(o.getAddress().getAddressType())
+                        .addressLine1(o.getAddress().getAddressLine1())
+                        .addressLine2(o.getAddress().getAddressLine2())
+                        .upazila(o.getAddress().getUpazila())
+                        .city(o.getAddress().getCity())
+                        .country(o.getAddress().getCountry())
+                        .phone(o.getAddress().getPhone())
+                        .email(o.getAddress().getEmail())
+                        .build() : null)
                 .createdAt(o.getCreatedAt())
                 .build());
     }
 
     @PutMapping("/{orderId}/status")
     @PreAuthorize("hasRole('ADMIN')")
-    public OrderDtos.OrderResponse updateStatus(@PathVariable Long orderId, @RequestBody OrderDtos.UpdateOrderStatusRequest request) {
+    public OrderDtos.OrderResponse updateStatus(@PathVariable Long orderId,
+            @RequestBody OrderDtos.UpdateOrderStatusRequest request) {
         Order o = orderService.updateStatus(orderId, request.getStatus());
         return OrderDtos.OrderResponse.builder()
                 .id(o.getId())
                 .totalAmount(o.getTotalAmount())
                 .status(o.getStatus())
+                .address(o.getAddress() != null ? OrderDtos.OrderAddressResponse.builder()
+                        .id(o.getAddress().getId())
+                        .addressType(o.getAddress().getAddressType())
+                        .addressLine1(o.getAddress().getAddressLine1())
+                        .addressLine2(o.getAddress().getAddressLine2())
+                        .upazila(o.getAddress().getUpazila())
+                        .city(o.getAddress().getCity())
+                        .country(o.getAddress().getCountry())
+                        .phone(o.getAddress().getPhone())
+                        .email(o.getAddress().getEmail())
+                        .build() : null)
                 .createdAt(o.getCreatedAt())
                 .build();
     }
 }
-
-

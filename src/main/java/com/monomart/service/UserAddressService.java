@@ -21,6 +21,27 @@ public class UserAddressService {
         this.addressRepository = addressRepository;
     }
 
+    // ----------------- VERIFICATION -----------------
+    /**
+     * Verifies that the given address belongs to the specified user.
+     * 
+     * @param addressId The ID of the address to verify
+     * @param userId    The ID of the user who should own the address
+     * @return The UserAddress if ownership is verified
+     * @throws RuntimeException if address not found or doesn't belong to user
+     */
+    @Transactional(readOnly = true)
+    public UserAddress verifyAddressOwnership(Long addressId, Long userId) {
+        UserAddress address = addressRepository.findById(addressId)
+                .orElseThrow(() -> new RuntimeException("Address not found"));
+
+        if (!address.getUser().getId().equals(userId)) {
+            throw new RuntimeException("Address does not belong to the current user");
+        }
+
+        return address;
+    }
+
     // ----------------- CREATE -----------------
     @Transactional
     public UserAddress addOrUpdateAddress(Long userId, UserAddressDtos.CreateRequest dto) {
