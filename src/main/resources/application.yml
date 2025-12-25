@@ -62,4 +62,6 @@ springdoc:
       name: ${API_CONTACT_NAME:MonoMart Support}
       email: ${API_CONTACT_EMAIL:support@monomart.local}
 
-
+stripe:
+  secretKey: ${STRIPE_API_KEY}
+  webhookSecret: ${STRIPE_WEBHOOK_SECRET}

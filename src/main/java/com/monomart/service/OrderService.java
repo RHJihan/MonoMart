@@ -55,6 +55,17 @@ public class OrderService {
         return orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Order not found"));
     }
 
+    public Order getOrderForCheckout(Long orderId, Long userId) {
+        Order order = get(orderId);
+        if (!order.getUser().getId().equals(userId)) {
+            throw new IllegalArgumentException("Order does not belong to user");
+        }
+        if (order.getStatus() != OrderStatus.PENDING) {
+            throw new IllegalArgumentException("Order cannot be checked out. Current status: " + order.getStatus());
+        }
+        return order;
+    }
+
     @Transactional
     public Order placeOrder(Long userId, Long addressId) {
         // Verify address ownership first
@@ -107,3 +118,5 @@ public class OrderService {
         return orderRepository.save(order);
     }
 }
+
+

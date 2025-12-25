@@ -2,10 +2,12 @@ package com.monomart.entities.enums;
 
 public enum OrderStatus {
     PENDING,
-    APPROVED,
+    PAID,
+    PROCESSING,
     SHIPPED,
     DELIVERED,
-    CANCELLED
+    CANCELLED,
+    REFUNDED
 }
 
 
