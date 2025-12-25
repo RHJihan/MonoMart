@@ -4,6 +4,7 @@ import com.monomart.entities.Order;
 import com.monomart.dto.order.OrderDtos;
 import com.monomart.security.AuthenticatedUser;
 import com.monomart.service.OrderService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -74,7 +75,7 @@ public class OrderController {
 
     @PostMapping("/place")
     public ResponseEntity<OrderDtos.OrderResponse> place(
-            @RequestBody @jakarta.validation.Valid OrderDtos.PlaceOrderRequest request, Authentication auth) {
+            @RequestBody @Valid OrderDtos.PlaceOrderRequest request, Authentication auth) {
         Order o = orderService.placeOrder(currentUserId(auth), request.getAddressId());
         return ResponseEntity.status(HttpStatus.CREATED).body(OrderDtos.OrderResponse.builder()
                 .id(o.getId())

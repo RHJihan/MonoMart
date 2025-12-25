@@ -1,6 +1,7 @@
 package com.monomart.service;
 
 import com.monomart.entities.OrderAddress;
+import com.monomart.entities.User;
 import com.monomart.entities.UserAddress;
 import com.monomart.repository.OrderAddressRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class OrderAddressService {
      * @return The saved OrderAddress snapshot
      */
     @Transactional
-    public OrderAddress createFromUserAddress(UserAddress source, com.monomart.entities.User user) {
+    public OrderAddress createFromUserAddress(UserAddress source, User user) {
         OrderAddress snapshot = new OrderAddress();
         snapshot.setUser(user);
         snapshot.setAddressType(source.getAddressType());
