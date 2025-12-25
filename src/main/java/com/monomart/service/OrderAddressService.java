@@ -24,8 +24,9 @@ public class OrderAddressService {
      * @return The saved OrderAddress snapshot
      */
     @Transactional
-    public OrderAddress createFromUserAddress(UserAddress source) {
+    public OrderAddress createFromUserAddress(UserAddress source, com.monomart.entities.User user) {
         OrderAddress snapshot = new OrderAddress();
+        snapshot.setUser(user);
         snapshot.setAddressType(source.getAddressType());
         snapshot.setAddressLine1(source.getAddressLine1());
         snapshot.setAddressLine2(source.getAddressLine2());

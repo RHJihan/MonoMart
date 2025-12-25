@@ -60,10 +60,10 @@ public class OrderService {
         // Verify address ownership first
         UserAddress userAddress = userAddressService.verifyAddressOwnership(addressId, userId);
 
-        // Create immutable snapshot of the address for this order
-        OrderAddress orderAddress = orderAddressService.createFromUserAddress(userAddress);
-
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        // Create immutable snapshot of the address for this order
+        OrderAddress orderAddress = orderAddressService.createFromUserAddress(userAddress, user);
         List<CartItem> cartItems = cartItemRepository.findByUserId(userId);
         if (cartItems.isEmpty())
             throw new IllegalArgumentException("Cart is empty");

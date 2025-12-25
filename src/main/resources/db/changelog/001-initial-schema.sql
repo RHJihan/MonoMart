@@ -103,6 +103,7 @@ CREATE INDEX idx_user_addresses_user ON user_addresses (id_user);
 --changeset monomart:008-create-order-addresses-table
 CREATE TABLE order_addresses (
     id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(id),
     address_type VARCHAR(20) NOT NULL,
     address_line_1 VARCHAR(255) NOT NULL,
     address_line_2 VARCHAR(255),
