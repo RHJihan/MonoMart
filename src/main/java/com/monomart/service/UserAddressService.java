@@ -36,6 +36,7 @@ public class UserAddressService {
         address.setCity(dto.getCity());
         address.setCountry(dto.getCountry());
         address.setPhone(dto.getPhone());
+        address.setEmail(dto.getEmail());
 
         return addressRepository.save(address);
     }
@@ -59,6 +60,7 @@ public class UserAddressService {
         address.setCity(dto.getCity());
         address.setCountry(dto.getCountry());
         address.setPhone(dto.getPhone());
+        address.setEmail(dto.getEmail());
 
         return addressRepository.save(address);
     }

@@ -1,6 +1,7 @@
 package com.monomart.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -51,4 +52,9 @@ public class UserAddress extends BaseEntity {
     @Size(max = 20)
     @Column(nullable = false, length = 20)
     private String phone;
+
+    @Email
+    @Size(max = 120)
+    @Column(length = 120)
+    private String email;
 }

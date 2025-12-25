@@ -81,3 +81,21 @@ CREATE TABLE order_items (
 
 CREATE INDEX idx_order_items_order ON order_items (order_id);
 CREATE INDEX idx_order_items_product ON order_items (product_id);
+
+--changeset monomart:007-create-user-addresses-table
+CREATE TABLE user_addresses (
+    id BIGSERIAL PRIMARY KEY,
+    id_user BIGINT NOT NULL REFERENCES users(id),
+    address_type VARCHAR(20) NOT NULL,
+    address_line_1 VARCHAR(255) NOT NULL,
+    address_line_2 VARCHAR(255),
+    upazila VARCHAR(100) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    country VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    email VARCHAR(120),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX idx_user_addresses_user ON user_addresses (id_user);
